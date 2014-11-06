@@ -42,21 +42,25 @@ qwertyToDvorak = {
 	"/": "Z",
 }
 
-if len(sys) != 1:
-	print('Usage: python explore.py <dictionary-file>');
-	sys.exit(len(sys))
-
-# read the file into words
-words = [line.strip() for line in open(sys[0])]
-
-# for every word, try to find a match in dvorak
-for word in words:
-	findMatch(word)
-
 def findMatch(word):
-	builtWord
+	matched = []
+	builtWord = ""
 	for char in word:
 		dvEquiv = qwertyToDvorak.get(char.upper())
 		builtWord += char.upper()
 
-	if words.index(builtWord): # TODO: is not error...
+	if builtWord in words:
+		matched.append(builtWord)
+
+	return matched
+
+if len(sys.argv) != 2:
+	print('Usage: python explore.py <dictionary-file>');
+	sys.exit(len(sys.argv))
+
+# read the file into words
+words = [line.strip().upper() for line in open(sys.argv[1])]
+
+# for every word, try to find a match in dvorak
+for word in words:
+	matched = findMatch(word)
