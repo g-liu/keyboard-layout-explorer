@@ -46,10 +46,10 @@ def findMatch(word):
 	matched = []
 	builtWord = ""
 	for char in word:
-		dvEquiv = qwertyToDvorak.get(char.upper())
-		builtWord += char.upper()
+		dvEquiv = qwertyToDvorak.get(char.upper(), "@")
+		builtWord += dvEquiv
 
-	if builtWord in words:
+	if builtWord in words and builtWord:
 		matched.append(builtWord)
 
 	return matched
@@ -61,6 +61,10 @@ if len(sys.argv) != 2:
 # read the file into words
 words = [line.strip().upper() for line in open(sys.argv[1])]
 
+# EXPERIMENTAL take 10000 words
+words = words[:10000]
+
 # for every word, try to find a match in dvorak
 for word in words:
 	matched = findMatch(word)
+	print(matched)
