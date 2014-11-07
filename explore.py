@@ -54,6 +54,7 @@ qwertyToDvorak = {
 	"8": "8",
 	"9": "9",
 }
+dvorakToQWERTY = {v: k for k, v in qwertyToDvorak.items()}
 
 def getDvorakEquiv(word):
 	builtWord = ""
@@ -63,8 +64,19 @@ def getDvorakEquiv(word):
 
 	return builtWord
 
-if len(sys.argv) != 2:
-	print('Usage: python explore.py <dictionary-file>');
+def getQWERTYEquiv(word):
+	builtWord = ""
+	for char in word:
+		qwEquiv = dvorakToQWERTY.get(char.upper(), char)
+		builtWord += qwEquiv
+
+	return builtWord
+
+if len(sys.argv) != 3:
+	print('Usage: python explore.py <dictionary-file> <conversion-direction>')
+	print("\tconversion-direction: one of -qd or -dq")
+	print("\t\t-qd: QWERTY to Dvorak")
+	print("\t\t-dq: Dvorak to QWERTY")
 	sys.exit(len(sys.argv))
 
 # read the file into words
@@ -72,6 +84,14 @@ words = set([line.strip().upper() for line in open(sys.argv[1])])
 
 # for every word, try to find a match in dvorak
 for word in words:
-	dWord = getDvorakEquiv(word)
-	if dWord in words:
-		print("%s\t%s" %(word, dWord))
+
+	if sys.argv[2] == "-qd":
+		dWord = getDvorakEquiv(word)
+		if dWord in words:
+			print("%s\t%s" %(word, dWord))
+	elif sys.argv[2] == "-dq":
+		qWord = getQWERTYEquiv(word)
+		if qWord in words:
+			print("%s\t%s" %(word, qWord))
+	else:
+		print("Error: invalid parameter %s" %(sys.argv[2]))

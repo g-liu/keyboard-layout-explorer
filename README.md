@@ -25,4 +25,4 @@ I have included the Scrabble dictionary as a starter. You may find a plethora of
 TODO
 ====
 
-* Dvorak -> QWERTY
+* Formal unit tests
