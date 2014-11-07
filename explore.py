@@ -1,4 +1,5 @@
 import sys
+from pprint import pprint
 
 # On several occasions, I have begun typing on my keyboard in one layout when I thought it was in another.
 # As a double QWERTY/Dvorak user, this often results in meaningless strings "pgvd kjg;e"
@@ -40,31 +41,37 @@ qwertyToDvorak = {
 	",": "W",
 	".": "V",
 	"/": "Z",
+	" ": " ",
+	"-": "[",
+	"0": "0",
+	"1": "1",
+	"2": "2",
+	"3": "3",
+	"4": "4",
+	"5": "5",
+	"6": "6",
+	"7": "7",
+	"8": "8",
+	"9": "9",
 }
 
-def findMatch(word):
-	matched = []
+def getDvorakEquiv(word):
 	builtWord = ""
 	for char in word:
-		dvEquiv = qwertyToDvorak.get(char.upper(), "@")
+		dvEquiv = qwertyToDvorak.get(char.upper(), char)
 		builtWord += dvEquiv
 
-	if builtWord in words and builtWord:
-		matched.append(builtWord)
-
-	return matched
+	return builtWord
 
 if len(sys.argv) != 2:
 	print('Usage: python explore.py <dictionary-file>');
 	sys.exit(len(sys.argv))
 
 # read the file into words
-words = [line.strip().upper() for line in open(sys.argv[1])]
-
-# EXPERIMENTAL take 10000 words
-words = words[:10000]
+words = set([line.strip().upper() for line in open(sys.argv[1])])
 
 # for every word, try to find a match in dvorak
 for word in words:
-	matched = findMatch(word)
-	print(matched)
+	dWord = getDvorakEquiv(word)
+	if dWord in words:
+		print("%s\t%s" %(word, dWord))
