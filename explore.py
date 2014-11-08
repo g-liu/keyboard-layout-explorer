@@ -1,15 +1,14 @@
 import sys
-from pprint import pprint
 
 # On several occasions, I have begun typing on my keyboard in one layout when I thought it was in another.
 # As a double QWERTY/Dvorak user, this often results in meaningless strings "pgvd kjg;e"
 # But now I wonder whether there are such pairs of words whose keystroke patterns are shared between
 # QWERTY and DVORAK...
 
-# Run this by passing in a dictionary.txt file in the command line args.
+# Run this by passing in a dictionary.txt file in the command line args, and specifying the conversion mode:
+# either one of -dq or -qd. Run `py explore.py` to learn more.
 
 
-# Dict from QWERTY to Dvorak
 qwertyToDvorak = {
 	"Q": "\"",
 	"W": "<",
@@ -43,34 +42,14 @@ qwertyToDvorak = {
 	"/": "Z",
 	" ": " ",
 	"-": "[",
-	"0": "0",
-	"1": "1",
-	"2": "2",
-	"3": "3",
-	"4": "4",
-	"5": "5",
-	"6": "6",
-	"7": "7",
-	"8": "8",
-	"9": "9",
 }
 dvorakToQWERTY = {v: k for k, v in qwertyToDvorak.items()}
 
 def getDvorakEquiv(word):
-	builtWord = ""
-	for char in word:
-		dvEquiv = qwertyToDvorak.get(char.upper(), char)
-		builtWord += dvEquiv
-
-	return builtWord
+	return "".join([qwertyToDvorak.get(char.upper(), char) for char in word])
 
 def getQWERTYEquiv(word):
-	builtWord = ""
-	for char in word:
-		qwEquiv = dvorakToQWERTY.get(char.upper(), char)
-		builtWord += qwEquiv
-
-	return builtWord
+	return "".join([dvorakToQWERTY.get(char.upper(), char) for char in word])
 
 if len(sys.argv) != 3:
 	print('Usage: python explore.py <dictionary-file> <conversion-direction>')
@@ -84,7 +63,6 @@ words = set([line.strip().upper() for line in open(sys.argv[1])])
 
 # for every word, try to find a match in dvorak
 for word in words:
-
 	if sys.argv[2] == "-qd":
 		dWord = getDvorakEquiv(word)
 		if dWord in words:
