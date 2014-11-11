@@ -49,9 +49,9 @@ for line in fileinput.input():
 # Get and print statistical info
 distr = getDistribution(matches)
 print("Total number of word pairs: {num}".format(num=len(matches)))
-print("{percentA} percent of pairs contain letter A".format(percentA=countPercLetter(matches, set('A'))))
-print("{percentM} percent of pairs contain letter M".format(percentM=countPercLetter(matches, set('M'))))
-print("{percentAorM} percent of pairs contain either letter A or letter M".format(percentAorM=countPercLetter(matches, set(['A', 'M']))))
+print("percent of pairs contain letter A: {percentA}%".format(percentA=round(countPercLetter(matches, set('A')), 2)))
+print("percent of pairs contain letter M: {percentM}%".format(percentM=round(countPercLetter(matches, set('M')), 2)))
+print("percent of pairs contain either letter A or letter M: {percentAorM}%".format(percentAorM=round(countPercLetter(matches, set(['A', 'M'])), 2)))
 print("Distribution of word sizes: {distr}".format(distr=distr))
 print("Percent distribution of word sizes {distPerc}"
 	.format(distPerc=dict((k, round(v * 100 / sum(distr.values()), 2)) for k, v in distr.items())))
