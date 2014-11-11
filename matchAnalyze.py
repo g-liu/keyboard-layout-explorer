@@ -16,11 +16,13 @@ def tokenize(line):
 	return (split[0], split[1])
 
 # STATISTICAL FUNCTIONS BELOW
-def countPercLetter(matches, letter):
+def countPercLetter(matches, letterSet):
 	count = 0
 	for tup in matches:
-		if letter in tup[0] or letter.lower() in tup[0]:
-			count += 1
+		for ltr in letterSet:
+			if ltr.upper() in tup[0] or ltr.lower() in tup[0]:
+				count += 1
+				break
 
 	return count * 100 / len(matches)
 
@@ -44,11 +46,12 @@ matches = list()
 for line in fileinput.input():
 	matches.append(tokenize(line.strip()))
 
-# Get statistical info
+# Get and print statistical info
 distr = getDistribution(matches)
 print("Total number of word pairs: {num}".format(num=len(matches)))
-print("{percentA} percent of pairs contain letter A".format(percentA=countPercLetter(matches, 'A')))
-print("{percentM} percent of pairs contain letter M".format(percentM=countPercLetter(matches, 'M')))
+print("{percentA} percent of pairs contain letter A".format(percentA=countPercLetter(matches, set('A'))))
+print("{percentM} percent of pairs contain letter M".format(percentM=countPercLetter(matches, set('M'))))
+print("{percentAorM} percent of pairs contain either letter A or letter M".format(percentAorM=countPercLetter(matches, set(['A', 'M']))))
 print("Distribution of word sizes: {distr}".format(distr=distr))
 print("Percent distribution of word sizes {distPerc}"
 	.format(distPerc=dict((k, round(v * 100 / sum(distr.values()), 2)) for k, v in distr.items())))
