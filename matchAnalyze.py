@@ -39,7 +39,7 @@ def getDistribution(matches):
 	return distr
 
 if len(sys.argv) != 1:
-	print('Usage: python matchAnalyze.py < match_file.txt')
+	print('Usage: python matchAnalyze.py <match_file.txt>')
 	exit(len(sys.argv))
 
 matches = list()
