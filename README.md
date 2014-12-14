@@ -3,7 +3,7 @@ Keyboard layout explorer
 
 For some reason, my keyboard likes to switch from QWERTY to Dvorak layout spontaneously, often while I'm changing windows. Usually, I don't notice this change until I start typing and see a meaningless string of characters spew forth.
 
-But there must be some combination of keystrokes that produce valid English words for both layouts...
+But there must be [some combination of keystrokes](http://g-liu.com/blog/2014/11/exploring-common-words-between-qwerty-and-dvorak/) that produce valid English words for both layouts...
 
 Purpose and usage
 -----------------
